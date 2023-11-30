@@ -28,9 +28,13 @@ function ReviewListItem({item, onDelete}){
 
 function ReviewList({items, onDelete}){
     //console.log(items);
-    return <ul>{items.map((item)=>{
-        return <li><ReviewListItem item={item} onDelete={onDelete}/></li>;
-    })}</ul>;
+    return (<ul>{items.map((item)=>{
+        return (
+        <li key={item.id}>
+            <ReviewListItem item={item} onDelete={onDelete}/>
+        </li>);
+    })}
+    </ul>);
 }
 
 export default ReviewList;
