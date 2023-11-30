@@ -4,8 +4,12 @@ import {getReviews} from '../api';
 
 function App(){
     
+    const LIMIT=6;
+
     const [order, setOrder]=useState('rating');
     const [items,setItems]=useState([]);
+    const [offset, setOffset]=useState(0);
+    const [hasNext,setHasNext]=useState(false);
 
     const sortedItems=items.sort((a,b)=>b[order]-a[order]);
 
@@ -18,14 +22,24 @@ function App(){
         setItems(nextItems);
     }
 
-    const handleLoad=async()=>{
-        const {reviews} = await getReviews();
-        setItems(reviews);
+    const handleLoad=async(options)=>{
+        const {reviews, paging} = await getReviews(options);
+        if(options.offset===0){
+            setItems(reviews);
+        }else{
+            setItems((prevItems)=>[...prevItems, ...reviews]);
+        }
+       setOffset(options.offset+reviews.length);
+       setHasNext(paging.hasNext);
+    };
+
+    const handleLoadMore=()=>{
+        handleLoad({order, offset, limit:LIMIT});
     }
 
-    useEffect(()=>{
-        handleLoad();
-    }, []);
+    useEffect(() => {
+        handleLoad({order, offset: 0, limit: LIMIT});
+    }, [order]);
 
 
     return (
@@ -35,6 +49,7 @@ function App(){
                 <button onClick={handleBestClick}>베스트순</button>
             </div>
             <ReviewList items={sortedItems} onDelete={handleDelete}/>
+            {hasNext && <button onClick={handleLoadMore}>더 보기</button>}
             
         </div>
 
