@@ -1,5 +1,5 @@
 import ReviewList from "./ReviewList";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {getReviews} from '../Api';
 
 function App(){
@@ -22,7 +22,7 @@ function App(){
         setItems(reviews);
     }
 
-    handleLoad();
+    useEffect(()=>{handleLoad();},[]);
     
 
     return (
