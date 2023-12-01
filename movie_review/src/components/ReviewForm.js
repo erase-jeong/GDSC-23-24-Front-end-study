@@ -19,11 +19,21 @@ function ReviewForm(){
         setContent(e.target.value);
     }
 
+    const handleSumbit=(e)=>{
+        console.log({
+            title,
+            rating,
+            content
+        })
+        //setContent(e.target.value);
+    }
+
     return (
-    <form className="ReveiwForm">
+    <form className="ReveiwForm" onSubmit={handleSumbit}>
         제목 : <input value={title} onChange={handleTitleChange}></input>
         평점 : <input type="number" value={rating} onChange={handleRatingChange}></input>
         내용 : <textarea value={content} onChange={handleContentChange}/>
+        <button type="submit ">확인</button>
     </form>
     
     );
