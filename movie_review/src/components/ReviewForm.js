@@ -19,7 +19,8 @@ function ReviewForm(){
         setContent(e.target.value);
     }
 
-    const handleSumbit=(e)=>{
+    const handleSubmit=(e)=>{
+        e.preventDefault();
         console.log({
             title,
             rating,
@@ -29,10 +30,10 @@ function ReviewForm(){
     }
 
     return (
-    <form className="ReveiwForm" onSubmit={handleSumbit}>
-        제목 : <input value={title} onChange={handleTitleChange}></input>
-        평점 : <input type="number" value={rating} onChange={handleRatingChange}></input>
-        내용 : <textarea value={content} onChange={handleContentChange}/>
+    <form className="ReveiwForm" onSubmit={handleSubmit}> <p></p>
+        제목 : <input value={title} onChange={handleTitleChange}></input> <p></p>
+        평점 : <input type="number" value={rating} onChange={handleRatingChange}></input> <p></p> 
+        내용 : <textarea value={content} onChange={handleContentChange}/> <p></p>
         <button type="submit ">확인</button>
     </form>
     
